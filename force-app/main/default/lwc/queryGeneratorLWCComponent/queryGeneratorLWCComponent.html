@@ -1,0 +1,83 @@
+<template >
+    <div style="background-color: rgb(228, 252, 252); text-decoration: double,solid;">
+    
+        <div style="width:500px;
+       margin: 0 auto;
+       background: rgb(228, 252, 252);
+       text-align: center;"> 
+       <h1> Query Generator In L W C </h1>
+       </div>
+
+
+        <lightning-combobox label="  Select an Object"
+                             value={value}
+                             placeholder="None"
+                             options={options}
+                             onchange={handleChange} >
+
+        </lightning-combobox>
+
+<template if:true={a}>
+
+    
+        <lightning-dual-listbox name="Fields"
+                                source-label=" Available Fields"
+                                selected-label="Selected Fields"
+                                value={selectedvalues}
+                                options={recordsdata}
+                                onchange={handleSelect}>
+        </lightning-dual-listbox>
+
+
+     <div class="slds-grid slds-wrap">
+
+          <div class="slds-col slds-size_5-of-12">
+
+        <div class="slds-align_absolute-center" style="height:4rem" >
+         <lightning-button variant="brand" label="Create" title="Primary action" onclick={CreateQuery} ></lightning-button>
+        </div>
+
+          </div>
+
+          <div class="slds-col slds-size_5-of-12">
+
+            <div class="slds-align_absolute-center" style="height:4rem" >
+             <lightning-button variant="brand" label="Refresh" title="Primary action" onclick={RefreshSelectedFields} ></lightning-button>
+            </div>
+    
+          </div>
+
+     </div>
+
+ <template if:true={b}>
+
+     <lightning-textarea name="input2" label="Query " value={soqlQuery}></lightning-textarea>
+     
+     <div class="slds-col slds-size_5-of-12">
+        <div class="slds-align_absolute-center" style="height:4rem" >
+            <lightning-button variant="brand" label="Execute " title="Primary action" onclick={GetTableRecords} ></lightning-button>
+        </div>
+     </div>
+
+     <template if:true={c}>
+
+     <div style="height: 300px;">
+        <lightning-datatable
+                key-field="id"
+                data={DataTebledata}
+                columns={DataTablecolumns}>
+        </lightning-datatable>
+    </div>
+
+    </template>
+
+ </template>
+</template>    
+
+    </div>
+
+    <div style="background-color: rgb(228, 252, 252); text-decoration: wavy,solid;" >
+        <Br>
+        <br>
+    </div>
+</template>
