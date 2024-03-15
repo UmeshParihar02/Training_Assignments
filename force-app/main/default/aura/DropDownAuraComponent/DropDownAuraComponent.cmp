@@ -1,0 +1,76 @@
+<aura:component controller="DropDownAuraApex" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId" access="global">
+    <aura:attribute name="mentors" type="List" default="" />
+    <aura:attribute name="ObjectsList" type="List" default="" />
+    <aura:attribute name="students" type="List" default="" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+
+    <lightning:select name="select1" label="Select an Institute" onchange="{!c.selectedInstitute}" variant="label-inline">
+        <option value="">None</option>
+        <aura:iteration items="{!v.ObjectsList}" var="item">
+            <option value="{!item.Id}">{!item.Name}</option>
+        </aura:iteration>
+    </lightning:select>
+
+    <aura:if isTrue="{!not(empty(v.mentors))}">
+        <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+            <thead>
+                <tr class="slds-line-height_reset">
+                    <th scope="col">
+                        <div class="slds-truncate" title="Mentor Name">Mentor Name</div>
+                    </th>
+                    <th scope="col">
+                        <div class="slds-truncate" title="Mentor Designation">Mentor Designation</div>
+                    </th>
+                    <th scope="col">
+                        <div class="slds-truncate" title="Student Number">Student Number</div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <aura:iteration items="{!v.mentors}" var="mentor">
+                    <tr class="slds-hint-parent">
+                        <th scope="row">
+                            <div class="slds-truncate" title="{!mentor.Name}" onclick="{!c.selectedMentor}" data-mentor-id="{!mentor.Id}">{!mentor.Name}</div>
+                        </th>
+                        <td data-label="Mentor Designation">
+                            <div class="slds-truncate" title="{!mentor.Designation__c}">{!mentor.Designation__c}</div>
+                        </td>
+                        <td data-label="Student Number">
+                            <div class="slds-truncate" title="{!mentor.Student_Number__c}">{!mentor.Student_Number__c}</div>
+                        </td>
+                    </tr>
+                    <!-- Conditional rendering of students for each mentor -->
+                    
+                </aura:iteration>
+            </tbody>
+        </table>
+    </aura:if>
+    
+     <aura:if isTrue="{!not(empty(v.students))}">
+        <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+            <thead>
+                <tr class="slds-line-height_reset">
+                    <th scope="col">
+                        <div class="slds-truncate" title="Student Name">Student Name</div>
+                    </th>
+                    <th scope="col">
+                        <div class="slds-truncate" title="Class">Class</div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                     <aura:iteration items="{!v.students}" var="student">
+                         <tr class="slds-hint-parent">
+                          <th scope="row">
+                              <div class="slds-truncate" title="{!student.Name}">{!student.Name}</div>
+                          </th>
+                          <td data-label="Student Number">
+                               <div class="slds-truncate" title="{!student.Class__c}">{!student.Class__c}</div>
+                          </td>
+                         </tr>
+                     </aura:iteration>
+                          
+             </tbody>
+      </table>
+    </aura:if>
+</aura:component>
