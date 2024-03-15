@@ -1,0 +1,49 @@
+<aura:component controller="ObjectDropdownController">
+
+        
+    <aura:attribute name="objectOptions" type="List" default="" />
+    <aura:attribute name="selectedObject" type="String" default=""/>
+    <aura:attribute name="fieldOptions" type="List" default="[]"/>
+    <aura:attribute name="selectedFields" type="List" default="[]"/>
+    <aura:attribute name="QueryFormat" type="String" default=""/>
+    <aura:attribute name="tabledata" type="List" />
+    <aura:attribute name="tableLabel" type="List" />
+
+    <aura:handler name="init" value="{!this}" action="{!c.init}" />
+    
+    <!-- For Drop Down Objects Of SalesForce Org -->
+    <lightning:select aura:id="objectSelect" name="objectSelect" label="Select an Object" value="{!v.selectedObject}" onchange="{!c.getFields}">
+        <aura:iteration items="{!v.objectOptions}" var="item">
+            <option value="{!item}" >{!item}</option>
+        </aura:iteration>
+    </lightning:select>
+    
+     <!-- Dual List Box For Showing All Fields Related To Object -->
+   <aura:if isTrue="{!not(empty(v.fieldOptions))}">
+    <lightning:dualListbox name="fieldSelector"  
+                           label="Select Fields" 
+                           sourceLabel="Available Fields" 
+                           selectedLabel="Selected Fields" 
+                           options="{!v.fieldOptions}" 
+                           value="{!v.selectedFields}" 
+                           onchange="{!c.getselectFields}"/>
+    </aura:if>
+         <br/>
+    
+        <lightning:button variant="brand" label="Create" title="Create Query" onclick="{!c.forQueryClick }" />
+	
+    	
+         <lightning:textarea value="{!v.QueryFormat}" label="SOQL Query " ></lightning:textarea>
+               
+         <lightning:button variant="brand" label="Create" title="Create Query" onclick="{!c.cilkForRecords}" />
+
+    
+   
+  <aura:if isTrue="{!not(empty(v.tabledata))}">
+        <lightning:datatable
+                data="{!v.tabledata}"
+                columns="{!v.tableLabel }"
+                keyField="Id"
+                hideCheckboxColumn="true"/>
+    </aura:if>
+    </aura:component>
